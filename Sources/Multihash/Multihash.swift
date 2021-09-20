@@ -3,26 +3,26 @@ import Base58
 
 public struct Multihash {
 
-    let code: Type
-    let digest: Data
+    public let code: Type
+    public let digest: Data
 
-    var length: Int {
+    public var length: Int {
         return digest.count
     }
 
-    var bytes: Data {
+    public var bytes: Data {
         var data = Data(repeating: 0, count: 0)
         data.append(contentsOf: [code.rawValue, UInt8(length)])
         data.append(digest)
         return data
     }
 
-    init(code: Type, hash: Data) {
+    public init(code: Type, hash: Data) {
         self.code = code
         self.digest = hash
     }
 
-    func toBase58() -> String? {
+    public func toBase58() -> String? {
         return [UInt8](bytes).base58EncodedString()
     }
 }
@@ -30,7 +30,7 @@ public struct Multihash {
 extension Multihash {
 
     // @todo error handling
-    init?(base58 input: String) {
+    public init?(base58 input: String) {
         let buffer = input.base58EncodedStringToBytes()
 
         if buffer.count < 2 {
@@ -48,9 +48,7 @@ extension Multihash {
 }
 
 extension Multihash: Equatable {
-
     public static func == (lhs: Multihash, rhs: Multihash) -> Bool {
         return lhs.code == rhs.code && lhs.digest == rhs.digest
     }
-
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-enum Type: UInt8 {
+public enum Type: UInt8 {
     case id = 0x00
     case sha1 = 0x11
     case sha2256 = 0x12
